@@ -1,5 +1,6 @@
 package com.example.youtubeclone.service;
 
+import com.example.youtubeclone.dto.VideoDto;
 import com.example.youtubeclone.model.Video;
 import com.example.youtubeclone.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,22 @@ public class VideoService{
 
         videoRepository.save(video);
     }
+
+
+    public VideoDto editVideo(VideoDto videoDto) {
+        //Find the video by Id
+       Video saveVideo = videoRepository.findById(videoDto.getId())
+                .orElseThrow(()-> new IllegalArgumentException("Can't find the value by Id" + videoDto.getId()));
+
+        //Map the videoDTO fields to Video
+        saveVideo.setTitle(videoDto.getTitle());
+        saveVideo.setDescription(videoDto.getDescription());
+        saveVideo.setTags(videoDto.getTags());
+        saveVideo.setThumbnailUrl(videoDto.getThumbnailUrl());
+        saveVideo.setVideoStatus(videoDto.getVideoStatus());
+
+        //save the video to the database
+        videoRepository.save(saveVideo);
+        return videoDto;
+    }
 }
-
-
-

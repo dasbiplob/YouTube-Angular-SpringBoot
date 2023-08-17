@@ -1,5 +1,6 @@
 package com.example.youtubeclone.controller;
 
+import com.example.youtubeclone.dto.VideoDto;
 import com.example.youtubeclone.service.VideoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,4 +20,11 @@ public class VideoController {
     public void uploadVideo(@RequestParam ("file") MultipartFile file){
         videoService.uploadVideo(file);
     }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public VideoDto editVideoMetaData(@RequestBody VideoDto videoDto){
+        return videoService.editVideo(videoDto);
+    }
+
 }
