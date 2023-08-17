@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class VideoController {
 
-    @Autowired
     private final VideoService videoService;
 
     @PostMapping
