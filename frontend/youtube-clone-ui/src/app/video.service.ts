@@ -9,7 +9,8 @@ import {UploadVideoResponse} from "./upload-video/UploadVideoResponse";
 })
 export class VideoService {
 
-  private _url = "http://localhost:8080/api/videos";
+  private _videoUrl = "http://localhost:8080/api/videos";
+  private _thumbnailUrl = "http://localhost:8080/api/videos/thumbnails";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -17,6 +18,16 @@ export class VideoService {
       //HTTP Post Call to Upload The Video
       const formData = new FormData()
       formData.append('file', file, file.name)
-      return this.httpClient.post<UploadVideoResponse>(this._url, formData);
+      return this.httpClient.post<UploadVideoResponse>(this._videoUrl, formData);
   }
+
+  uploadThumbnail(file: File, videoId: string):Observable<string>{
+        //HTTP Post Call to Upload The Thumbnail
+        const formData = new FormData()
+        formData.append('file', file, file.name)
+        formData.append('videoId', videoId)
+        return this.httpClient.post(this._thumbnailUrl, formData,{
+        responseType:'text'
+        })
+    }
 }

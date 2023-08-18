@@ -30,7 +30,7 @@
       <div>
         <mat-form-field class="example-chip-list" appearance="fill">
           <mat-label>Tags</mat-label>
-          <mat-chip-grid #chipList >
+          <mat-chip-grid #chipList aria-label="Fruit selection">
             <mat-chip *ngFor="let tag of tags"
                       [removable]="removable" (removed)="remove(tag)">
               {{tag}}
@@ -45,6 +45,24 @@
                    (matChipInputTokenEnd)="add($event)"/>
           </mat-chip-grid>
         </mat-form-field>
+      </div>
+      <div>
+        <label for="inputGroupFile01">Upload Thumbnail:
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="inputGroupFile01"
+                   aria-describedby="inputGroupFileAddon01" (change)="onFileSelected($event)">
+          </div>
+          <br/>
+          <div>
+            <div *ngIf="fileSelected">
+            </div>
+            <div>
+              <p>Selected File: {{selectedFileName}}</p>
+            </div>
+            <button mat-raised-button color="primary" type="submit" (click)="onUpload()">Upload</button>
+          </div>
+          <br>
+        </label>
       </div>
       <div>
         <button type="submit" mat-raised-button color="primary">Save</button>
