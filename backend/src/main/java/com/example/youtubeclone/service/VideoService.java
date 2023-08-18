@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class VideoService{
@@ -59,5 +61,20 @@ public class VideoService{
     Video getVideoById(String videoId){
         return videoRepository.findById(videoId)
                 .orElseThrow(()-> new IllegalArgumentException("Can't find the value by Id" + videoId));
+    }
+
+    public VideoDto getVideoDetails(String videoId) {
+        Video saveVideo = getVideoById(videoId);
+
+        VideoDto videoDto = new VideoDto();
+        videoDto.setThumbnailUrl(saveVideo.getThumbnailUrl());
+        videoDto.setVideoUrl(saveVideo.getVideoUrl());
+        videoDto.setId(saveVideo.getId());
+        videoDto.setTitle(saveVideo.getTitle());
+        videoDto.setDescription(saveVideo.getDescription());
+        videoDto.setTags(saveVideo.getTags());
+        videoDto.setVideoStatus(saveVideo.getVideoStatus());
+
+        return videoDto;
     }
 }
