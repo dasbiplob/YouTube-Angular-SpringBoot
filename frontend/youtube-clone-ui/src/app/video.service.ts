@@ -36,4 +36,8 @@ export class VideoService {
     getVideoDetails(videoId: string): Observable<VideoDto>{
     return this.httpClient.get<VideoDto>(this._videoDetailsUrl + videoId);
     }
+
+    saveVideo(videoMetaData: VideoDto): Observable<VideoDto>{
+     return this.httpClient.put<VideoDto>(this._videoUrl, videoMetaData);
+    }
 }
